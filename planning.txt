@@ -1,0 +1,10 @@
+//voting application
+What?
+A functionality where user can give vote the give set of candidate.
+
+//user SignIn?SignUp
+//set the list of candidate
+//vote one of the candidate
+//display the result of voting continuosly
+//logging credential ----using Adhar Card No,password
+//admin

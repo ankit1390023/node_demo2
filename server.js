@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const foodRoutes = require('./routes/foodRoutes');
 const userRoutes = require('./routes/userRoutes');
-const passport = require('./auth.js');
+// const passport = require('./auth.js');
+const { jwtAuthMiddleware } = require('./jwt.js');
 require('dotenv').config();
 const app = express();
 connectDB();
@@ -12,14 +13,15 @@ connectDB();
 app.use(express.json());
 
 // Initialize Passport
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 // Use food routes
-app.use('/food', foodRoutes);
+app.use('/food',jwtAuthMiddleware, foodRoutes);
 
 // Secure user routes with local strategy authentication
-const localAuthMiddleware = passport.authenticate('local', { session: false });
-app.use('/user', localAuthMiddleware, userRoutes);
+// const localAuthMiddleware = passport.authenticate('local', { session: false });
+app.use('/',userRoutes);
+
 
 // Global error handler
 app.use((err, req, res, next) => {
